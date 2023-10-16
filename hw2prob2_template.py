@@ -78,7 +78,7 @@ print(test2.info)
 import numpy as np
 
 # Define a subclass of a numpy array that has additional metadata accessible as an attribute
-class InfoArray(np.ndarray):
+class RegularSpectrocopy(np.ndarray):
     def __new__(subtype, shape, dtype=float, buffer=None, offset=0, strides=None, order=None, info=None):
         obj = super().__new__(subtype, shape, dtype, buffer, offset, strides, order)
         obj.info = info
@@ -89,7 +89,7 @@ class InfoArray(np.ndarray):
         self.info = getattr(obj, 'info', None)
 
 # Define the data type
-dt = np.dtype([('time', np.float64), ('flux', np.float64)], metadata={'unit_time': 'MJD', 'unit_flux': 'Jy'})
+RegularSpectrocopy_data = np.dtype([('time', np.float64), ('flux', np.float64)], metadata={'unit_time': 'MJD', 'unit_flux': 'Jy'})
 
 # Create an array with the defined data type
 arr = np.zeros((60,), dtype=dt)
@@ -112,7 +112,6 @@ print(info_arr.info)
 # the same wavelength grid.  Consider defining the regularly spaced wavelength grid as metadata.  
 # Be sure to be able to recover the timestamp of each spectrum – this may be done by recording the t0 and delta t as 
 # metadata.
-
 
 # Define the data type
 dt = np.dtype([('time', np.float64), ('spectrum', np.float64, (10,))], metadata={'unit_time': 'MJD', 'unit_spectrum': 'Jy'})
