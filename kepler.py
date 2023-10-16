@@ -1,14 +1,10 @@
-# This is a module file to X
+# This is a module file with functions to perform the computations to compute the positions of two bodies in Keplerian orbits around a star
 
 import numpy as np
 from scipy.optimize import fmin
 
-# mean anomaly (M) expected as array,  eccentricity (e) expected as scalar
-# M = E - e*sin(E)
-
-
 def solve_Kepler(M, e):
-    """ Solves Kepler's equation, returning eccentric anomaly E in [rad] given M, e."""
+    """ Solves Kepler's equation, returning eccentric anomaly E in [rad] given M (array), e (scalar)."""
     kep = lambda E, M: np.sum(np.abs(M-E+e*np.sin(E)))
     E0 = M + np.sign(np.sin(M)) * 0.85 * e # initial guess
     E = np.empty_like(M)
@@ -18,13 +14,11 @@ def solve_Kepler(M, e):
                     )
     return E
 
-
-# compute true anomaly
 def find_True_Anomaly(E, e):
+    """ Computes the true anomaly in radians."""
     nu = 2.*np.arctan2(np.sqrt(1.+e)*np.sin(E/2.), np.sqrt(1.-e)*np.cos(E/2.)) # [rad]
     return nu
 
-# find space positions (radius, sin/cos factors)
 
 def find_Space_Positions(a, e, inc, omega, Omega, nu):
     r = a * (1.-e**2) / (1.+e*np.cos(nu)) # compute radius [AU]
