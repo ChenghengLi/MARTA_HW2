@@ -18,7 +18,6 @@ obj2parms = (15., 0.3, 85. * np.pi/180., 15. * np.pi/180., 5. * np.pi/180., 55. 
 # Find Mean Anomaly, given the period T [days] and the time of periastron T0 [days].
 def find_Mean_Anomaly(t,T,T0):
     M = (t-T0)/T * 2.*np.pi # [rad]  mean anomaly
-    print(M)
     return M
 
 # Define time intervals
@@ -46,8 +45,9 @@ plt.scatter(x2, y2, label='Object 2')
 plt.title("HW2 EX1")
 plt.xlabel('X Position')
 plt.ylabel('Y Position')
-plt.show()
+
 
 # Save the plot to PDF
-
 plt.savefig("HW2PROB1_image.pdf", format="pdf", bbox_inches="tight")
+
+print("Done!")
